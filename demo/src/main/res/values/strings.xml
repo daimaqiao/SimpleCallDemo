@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Demo</string>
+    <string name="app_name">SimpleCallDemo</string>
 
     <string name="call">Call</string>
     <string name="call_connected">Call connected</string>

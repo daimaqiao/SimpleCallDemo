@@ -44,7 +44,8 @@
                 android:layout_width="0dp"
                 android:layout_height="24dp"
                 android:layout_weight="14"
-                android:src="@mipmap/ic_material_message_grey" />
+                android:src="@mipmap/ic_material_message_grey"
+                android:visibility="invisible" />
 
             <ImageView
                 android:id="@+id/call_speaker_view"

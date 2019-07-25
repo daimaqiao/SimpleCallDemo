@@ -45,6 +45,11 @@ public class CallViewActivity extends AppCompatActivity {
     @BindView(R.id.call_view_container)
     ViewGroup callViewContainer;
 
+    @BindView(R.id.call_speaker_view)
+    ImageView callSpeakerView;
+    @BindView(R.id.mute_audio)
+    ImageView muteAudio;
+
     enum Status { INIT, OUTGOING, INCOMING, ACCEPTED, END }
     void updateStatus(Status status) {
         cancelAndGoback.setVisibility(View.VISIBLE);
@@ -95,6 +100,10 @@ public class CallViewActivity extends AppCompatActivity {
             callInRoom();
 
         AppInstance.getDemoCall().setHandleCallConnected(()-> updateStatus(Status.ACCEPTED));
+
+        AppInstance.getSoundsManager().setSpeakerOn(this::updateCallSpeakerView);
+        AppInstance.getSoundsManager().setMicMute(this::updateMuteAudio);
+
     }
 
     void callInRoom() {
@@ -128,46 +137,37 @@ public class CallViewActivity extends AppCompatActivity {
         AppInstance.end();
     }
 
-    @OnClick(R.id.room_chat_link)
-    void onRoomChat() {
-
-        Toast.makeText(this, "即将开通：打开文字交流", Toast.LENGTH_SHORT).show();
-    }
-
     @OnClick(R.id.call_speaker_view)
     void onCallSpeaker() {
-
-        Toast.makeText(this, "即将开通：使用外放音", Toast.LENGTH_SHORT).show();
-    }
-
-    @OnClick(R.id.call_switch_camera_view)
-    void onSwitchCamara() {
-
-        Toast.makeText(this, "即将开通：切换摄像头", Toast.LENGTH_SHORT).show();
-    }
-
-    @OnClick(R.id.start_video_call)
-    void onStartVideo() {
-
-        Toast.makeText(this, "即将开通：开启视频通话", Toast.LENGTH_SHORT).show();
-    }
-
-    @OnClick(R.id.mute_local_camera)
-    void onMuteCamara() {
-
-        Toast.makeText(this, "即将开通：关摄像头", Toast.LENGTH_SHORT).show();
+        AppInstance.getSoundsManager().toggleSpeater();
     }
 
     @OnClick(R.id.mute_audio)
     void onMuteAudio() {
-
-        Toast.makeText(this, "即将开通：本麦克风", Toast.LENGTH_SHORT).show();
+        if(true) {
+            Toast.makeText(this, "麦克风静音功能暂不可用 :-(", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        AppInstance.getSoundsManager().toggleMicMute();
     }
 
     @OnClick(R.id.call_other_member)
     void onTest() {
         AppInstance.getLocalRoom().sendText(new Date().toString());
 
+    }
+
+    private void updateCallSpeakerView(boolean on) {
+        int iconId = on ? R.mipmap.ic_material_speaker_phone_pink_red
+                : R.mipmap.ic_material_speaker_phone_grey;
+        callSpeakerView.setImageResource(iconId);
+        Toast.makeText(this, "外放："+ (on?"开":"关"), Toast.LENGTH_SHORT).show();
+    }
+    private void updateMuteAudio(boolean mute) {
+        int iconId = mute ? R.mipmap.ic_material_mic_off_pink_red
+                : R.mipmap.ic_material_mic_off_grey;
+        muteAudio.setImageResource(iconId);
+        Toast.makeText(this, "麦克风："+ (mute?"静音（可能无效）":"恢复"), Toast.LENGTH_SHORT).show();
     }
 
 }

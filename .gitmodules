@@ -1,8 +1,12 @@
 [submodule "socket.io-client-java"]
-	path = socket.io-client-java
+	path = repo/socket.io-client-java
 	url = https://github.com/daimaqiao/socket.io-client-java.git
 	branch = local_edit
 [submodule "matrix-android-sdk"]
-	path = matrix-android-sdk
+	path = repo/matrix-android-sdk
 	url = https://github.com/daimaqiao/matrix-android-sdk.git
+	branch = local_edit
+[submodule "repo/socket.io"]
+	path = repo/socket.io
+	url = https://github.com/daimaqiao/socket.io.git
 	branch = local_edit

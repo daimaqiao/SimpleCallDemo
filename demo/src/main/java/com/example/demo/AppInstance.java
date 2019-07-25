@@ -57,6 +57,14 @@ public class AppInstance {
         return demoCall;
     }
 
+    private static SoundsManager soundsManager= null;
+    public static void setSoundsManager(SoundsManager soundsManager) {
+        AppInstance.soundsManager= soundsManager;
+    }
+    public static SoundsManager getSoundsManager() {
+        return soundsManager;
+    }
+
     private static boolean video= false;
     public static boolean isVideo() {
         return video;

@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.demo"
+        applicationId "daimaqiao.SimpleCallDemo"
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 1

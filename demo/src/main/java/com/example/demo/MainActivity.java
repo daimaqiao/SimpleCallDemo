@@ -7,11 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demo.util.Permissions;
 
+import java.util.Date;
 import java.util.Random;
 
 import butterknife.BindView;
@@ -82,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         session.open();
 
         ILocalRoom room= session.joinRoom(roomId);
-        ILocalCallsManager manager = new LocalCallsManager(session, getApplicationContext());
+        ILocalCallsManager manager = new LocalCallsManager(session, this);
 
         AppInstance.setLocalSession(session);
         AppInstance.setLocalRoom(room);
@@ -90,6 +92,9 @@ public class MainActivity extends AppCompatActivity {
 
         DemoCall demoCall= new DemoCall(manager);
         AppInstance.setDemoCall(demoCall);
+
+        SoundsManager soundsManager= new SoundsManager(this);
+        AppInstance.setSoundsManager(soundsManager);
 
         buttonLogin.setEnabled(false);
         buttonCallInRoom.setVisibility(View.VISIBLE);
@@ -130,6 +135,21 @@ public class MainActivity extends AppCompatActivity {
     @OnClick(R.id.buttonEnd)
     void onButtonEnd() {
         AppInstance.end();
+    }
+
+    @BindView(R.id.imageViewLogo)
+    ImageView imageViewLogo;
+    @OnClick(R.id.imageViewLogo)
+    void onImageViewLogoClicked() {
+        ILocalRoom room= AppInstance.getLocalRoom();
+        if(room == null)
+            return;
+
+        Date now= new Date();
+        String msg= now.toString();
+
+        room.sendText(msg);
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 }

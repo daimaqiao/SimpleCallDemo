@@ -13,3 +13,5 @@
 .externalNativeBuild
 .idea
 *.swp
+package-lock.json
+

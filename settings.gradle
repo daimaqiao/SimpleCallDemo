@@ -1,0 +1,7 @@
+include ':app'
+
+include ':demo'
+include ':matrix-sdk'
+include ':socketio-sdk'
+include ':socketio-signaling'
+
